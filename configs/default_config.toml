@@ -1,0 +1,29 @@
+# Sonar Configuration
+
+# ~~~~~ CONNECTION PARAMETERS ~~~~~
+
+[connection]
+
+# ----- Device Name / Port -----
+# Specify either device name for auto port detection or hardcode port.
+# Will auto detect by name if no port specified
+device_name = ""
+port = ""
+
+# ~~~~~ CTD USER PARAMETERS ~~~~~
+# Chart listing deployment settings available in the /docs directory.
+
+[deploy_settings]
+
+# ----- Interval -----
+# Sampling interval in seconds
+# Float
+
+interval = 1.0
+
+# ----- Pressure -----
+# Water pressure in kPa
+# Float
+
+pressure = 1.0
+
