@@ -4,6 +4,8 @@ import logging
 import threading
 from pathlib import Path
 
+from . import bootstrap
+
 log = logging.getLogger(__name__)
 
 class Handler:
@@ -20,6 +22,13 @@ class Handler:
         # Store inputs
         self.config = config
         self.data_dir = data_dir
+
+        # Initialize data directory and log file
+        bootstrap.init_data_dir(self.data_dir)
+        bootstrap.create_log_file()
+
+        # From configuration file - populate connection and switch command dictionaries
+        self.connection, self.switch_cmd = bootstrap.parse_config(self.config)
 
     # Begins the scanning process
     def start_record(self, stop_event: threading.Event | None = None) -> None:

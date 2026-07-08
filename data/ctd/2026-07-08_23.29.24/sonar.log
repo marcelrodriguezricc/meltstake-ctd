@@ -1,0 +1,4 @@
+23:29:24: Melt Stake Aanderaa 5990 CTD deployment log initialized
+23:29:24: Path to log: /Users/marcel/Desktop/meltstake-ctd/data/ctd/2026-07-08_23.29.24/ctd.log
+23:29:24: Configuration file loaded: /Users/marcel/Desktop/meltstake-ctd/configs/default_config.toml
+23:29:24: Configuration file parsed - {'interval': 1.0, 'pressure': 0}

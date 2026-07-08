@@ -6,11 +6,11 @@
 ![Platform: Raspberry%20Pi](https://img.shields.io/badge/platform-Raspberry%20Pi-C51A4A)
 ![OS: Linux](https://img.shields.io/badge/os-Linux-FCC624)
 
-Controller/data handler for integrating a stereo pair of **Deepwater Exploration stellarHD** cameras into the Melt Stake system, with additional tools for 3D Particle Tracking Velocimetry (PTV). 
+Controller/data handler for integrating an **Aanderra 5990 Conductivity Sensor** into the Melt Stake system, with additional tools for debugging
 
 ## Requirements
 
-- Hardware: Xylem Aandreaa 5990 Conductivity Sensor
+- Hardware: Xylem Aanderaa 5990 Conductivity Sensor
 - Python **3.11+** (project currently uses Python 3.11.x)
 - Target OS: **Debian 13 (Trixie) Lite** (Raspberry Pi)
 - Tested on: **Debian 13 (Trixie) Lite** (Raspberry Pi)

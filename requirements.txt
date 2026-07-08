@@ -3,6 +3,7 @@ charset-normalizer==3.4.4
 future==1.0.0
 idna==3.11
 iso8601==2.1.0
+-e git+https://github.com/marcelrodriguezricc/meltstake-ctd.git@4bc08a4b677a062f4823266d1141d55624bb9d5c#egg=meltstake_ctd
 pyserial==3.5
 PyYAML==6.0.3
 requests==2.32.5
