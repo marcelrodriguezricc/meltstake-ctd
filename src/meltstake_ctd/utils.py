@@ -36,7 +36,7 @@ def append_log(line: str) -> None:
     # If debug mode enabled, print all logged lines to console
     log.debug(line)
 
-    log_path = Path(f"{data_path}/sonar.log")
+    log_path = Path(f"{data_path}/ctd.log")
 
     # Open file and append line
     with log_path.open("a", encoding="utf-8") as f:
@@ -64,10 +64,10 @@ def make_file(filename: str) -> Path:
     return out_path
 
 def parse_args() -> argparse.Namespace:
-    """Parse command-line arguments for running a Melt Stake 881A sonar deployment.
+    """Parse command-line arguments for running a Melt Stake Aanderaa 5990 CTD deployment.
     """
 
-    p = argparse.ArgumentParser(description="Melt Stake 881A Sonar deployment runner")
+    p = argparse.ArgumentParser(description="Melt Stake Aanderaa 5990 CTD deployment runner")
 
     # Default configuration file
     default_config = "default_config.toml"

@@ -15,6 +15,7 @@ class Handler:
     init_time: str
     connection: dict
     device: serial.Serial
+    settings: dict
 
     # Runs on object initialization
     def __init__(self, config: str = "default_config.toml", data_dir: str | None = None):
@@ -28,7 +29,10 @@ class Handler:
         bootstrap.create_log_file()
 
         # From configuration file - populate connection and switch command dictionaries
-        self.connection, self.switch_cmd = bootstrap.parse_config(self.config)
+        self.connection, self.settings = bootstrap.parse_config(self.config)
+
+        # Initialize the serial connection
+        self.device = bootstrap.init_serial(self.connection)
 
     # Begins the scanning process
     def start_record(self, stop_event: threading.Event | None = None) -> None:

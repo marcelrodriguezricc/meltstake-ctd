@@ -15,7 +15,7 @@ _DEFAULT_CONNECTION: dict[str, object] = {
     "port": None,
 }
 
-_DEFAULT_CONFIG: dict[str, float] = {
+_DEFAULT_SETTINGS: dict[str, float] = {
     "interval": 1.0,
     "pressure": 0.0,
 }
@@ -195,10 +195,10 @@ def parse_config(config: str) -> tuple[dict, dict]:
     # Try to get connection and config keys, if it fails, set to default
     try:
         connection = dict(cfg.get("connection", {}))
-        configuration = dict(cfg.get("config ", {}))
+        settings = dict(cfg.get("settings ", {}))
     except Exception as e:
         utils.append_log(f"Failed to parse configuration from config.toml: {e}, setting to default.")
-        configuration = _DEFAULT_CONFIG
+        settings = _DEFAULT_SETTINGS
         raise
     
     # Fill missing connection keys with defaults
@@ -214,16 +214,16 @@ def parse_config(config: str) -> tuple[dict, dict]:
         _set_default(connection, "device_name", _DEFAULT_CONNECTION["device_name"], "both port and device_name missing/blank")
 
     # Fill missing switch command keys with defaults
-    for k, v in _DEFAULT_CONFIG.items():
-        configuration.setdefault(k, v)
+    for k, v in _DEFAULT_SETTINGS.items():
+        settings.setdefault(k, v)
 
     # Validate switch command parameters
-    _clamp_float(configuration, "interval", _DEFAULT_CONFIG["interval"], 1.0, 15300.0)
-    _clamp_float(configuration, "pressure", _DEFAULT_CONFIG["pressure"], 0, 110000.0)
+    _clamp_float(settings, "interval", _DEFAULT_SETTINGS["interval"], 1.0, 15300.0)
+    _clamp_float(settings, "pressure", _DEFAULT_SETTINGS["pressure"], 0, 110000.0)
 
-    utils.append_log(f"Configuration file parsed - {configuration}")
+    utils.append_log(f"Configuration file parsed - {settings}")
 
-    return connection, configuration
+    return connection, settings
 
 def create_log_file() -> None:
     """Create log file and write an init line."""
@@ -234,7 +234,7 @@ def create_log_file() -> None:
     utils.append_log(f"Melt Stake Aanderaa 5990 CTD deployment log initialized")
     utils.append_log(f"Path to log: {log_path}")
 
-def init_serial(connection: dict, baud: int = 115200, timeout: float = 1.0) -> serial.Serial:
+def init_serial(connection: dict, baud: int = 9600, timeout: float = 1.0) -> serial.Serial:
     """Initialize and return a serial connection.
 
     Args:

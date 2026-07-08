@@ -13,7 +13,7 @@ port = ""
 # ~~~~~ CTD CONFIGURATIONS ~~~~~
 # Chart listing deployment settings available in the /docs directory.
 
-[config]
+[settings]
 
 # ----- Interval -----
 # Sampling interval in seconds
