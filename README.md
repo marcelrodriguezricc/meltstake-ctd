@@ -22,11 +22,10 @@ This repo uses a **src/** layout:
 - Package code: `src/meltstake_ctd/`
 - Config files: `configs/`
 - Recorded data: `data/` (created at runtime unless different directory is specified)
-- Aandreaa 5990 documentation: `docs/`
+- Aanderaa 5990 and other pertinent documentation: `docs/`
 - Shell scripts for run and setup on Linux: `scripts/`
-- Secondary programs: `tools/`
+- Complementary scripts: `tools/`
 - Tests: `tests/`
-- Computer-aided design assets for physical integration: `cad-assets/`
 
 ## Installation
 
@@ -120,7 +119,7 @@ Config lookup behavior is intended to support filename only (under `configs/`), 
 
 - ### Aanderaa 5990 Raw Data Parser (raw_data_parser.py)
 
-    Convert raw Aanderaa 5990 data .txt file into a human-readable .csv
+    Convert raw Aanderaa 5990 data .txt file into a .csv
 
     - **Usage**
 
