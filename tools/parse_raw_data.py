@@ -9,8 +9,10 @@ import csv
 from pathlib import Path
 
 # ══════════════════════════════ USER SETTINGS ══════════════════════════════
+
 INPUT_PATH  = "raw_data.txt" # Raw capture to read
 OUTPUT_PATH = "" # leave "" to write next to the input as <input>.csv
+
 # ════════════════════════════════════════════════════════════════════════════
 
 

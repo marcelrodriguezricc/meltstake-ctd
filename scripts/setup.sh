@@ -8,11 +8,11 @@ REPO="/home/$SUDO_USER/meltstake-ctd"
 sudo apt-get install -y python3 python3-venv python3-pip
 
 # Create virtual environment
-python3 -m venv "$REPO/venv"
+python3 -m venv "$REPO/.venv"
 
 # Install requirements
-"$REPO/venv/bin/pip" install -r "$REPO/requirements.txt"
+"$REPO/.venv/bin/pip" install -r "$REPO/requirements.txt"
 
 # Install this package
-"$REPO/venv/bin/pip" install -e "$REPO"
+"$REPO/.venv/bin/pip" install -e "$REPO"
 

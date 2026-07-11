@@ -42,6 +42,7 @@ REFERENCE = ""  # Free-text reference / notes
 PASSKEY = 1000 # Access level for Set commands (1000 covers all user properties)
 SAVE = True # Persist to sensor flash so settings survive a power cycle
 VERIFY = True # After writing, read the values back and print them to confirm
+
 # ════════════════════════════════════════════════════════════════════════════
 
 

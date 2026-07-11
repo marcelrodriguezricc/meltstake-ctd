@@ -31,5 +31,5 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-source "$ROOT/venv/bin/activate"
+source "$ROOT/.venv/bin/activate"
 python -m meltstake_ctd $DEBUG --config "configs/$CONFIG" --data "$DATA"
