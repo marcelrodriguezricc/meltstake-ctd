@@ -32,7 +32,7 @@ This repo uses a **src/** layout:
 From the repo root:
 
 ```bash
-sudo ./meltstake-ptv/scripts/setup.sh
+sudo ./meltstake-ctd/scripts/setup.sh
 ```
 
 OR
