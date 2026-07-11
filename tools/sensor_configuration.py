@@ -24,8 +24,8 @@ PORT = "/dev/ttyAMA0" # Sensor's serial device (/dev/ttyAMA0 is the default for 
 BAUD = 9600  # Sensor's baud rate (factory default 9600)
 
 # Sensor Settings
-INTERVAL_S = 1 # Sampling interval, seconds (allowed 1 – 15300)
-PRESSURE_KPA = 0 # Fixed pressure for derived params, in kPa (only used if ENABLE_DERIVED is True)
+INTERVAL_S = 1.5 # Sampling interval, seconds (allowed 1 – 15300)
+PRESSURE_KPA = 0.0 # Fixed pressure for derived params, in kPa (only used if ENABLE_DERIVED is True)
 ENABLE_DERIVED = False # Includes derived values for Salinity, Density and Speed of sound
 ENABLE_POLLED_MODE = False # True = Sensor outputs only when polled by a "Do Sample" message, False = sensor free-runs at INTERVAL_S, this software assumes this is set to False
 
