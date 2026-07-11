@@ -50,7 +50,7 @@ def main() -> None:
         log.debug("Debugging enabled...")
 
         # Print instructions for listener
-        user = input("Press Enter to start scanning (or type 's' then Enter to stop): ").strip().lower()
+        user = input("Press Enter to start recording (or type 's' then Enter to stop): ").strip().lower()
         if user in {"s", "quit", "exit", "q", "stop"}:
             return
         
@@ -61,7 +61,7 @@ def main() -> None:
 
         # Tell handler to start recording
         try:
-            handler.start_record()
+            handler.start_record(stop_event=stop_event)
         except KeyboardInterrupt:
             stop_event.set()
 

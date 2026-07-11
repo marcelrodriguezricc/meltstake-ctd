@@ -5,17 +5,17 @@ import threading
 from pathlib import Path
 
 from . import bootstrap
+from . import record
 
 log = logging.getLogger(__name__)
 
 class Handler:
     config: str | Path
     data_dir: Path
-    data_path: Path
     init_time: str
     connection: dict
     device: serial.Serial
-    settings: dict
+    interval: float
 
     # Runs on object initialization
     def __init__(self, config: str = "default_config.toml", data_dir: str | None = None):
@@ -29,11 +29,12 @@ class Handler:
         bootstrap.create_log_file()
 
         # From configuration file - populate connection and switch command dictionaries
-        self.connection, self.settings = bootstrap.parse_config(self.config)
+        self.connection = bootstrap.parse_config(self.config)
 
         # Initialize the serial connection
         self.device = bootstrap.init_serial(self.connection)
 
     # Begins the scanning process
     def start_record(self, stop_event: threading.Event | None = None) -> None:
-        print("recording")
+        record.write_properties_to_log(self.device)
+        record.record_data_stream(self.device, stop_event=None)

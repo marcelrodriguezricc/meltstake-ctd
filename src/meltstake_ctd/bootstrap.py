@@ -1,6 +1,5 @@
 import tomllib
 import serial
-import json
 from serial.tools import list_ports
 from datetime import datetime, timezone
 from pathlib import Path
@@ -14,13 +13,6 @@ _DEFAULT_CONNECTION: dict[str, object] = {
     "device_name": "/dev/ttyAMA0",
     "port": None,
 }
-
-_DEFAULT_SETTINGS: dict[str, float] = {
-    "interval": 1.0,
-    "pressure": 0.0,
-}
-
-import math
 
 def _norm_optional_str(val: object) -> str | None:
     """Checks for an input; if it's a string, strips whitespace from string if present."""
@@ -43,38 +35,6 @@ def _set_default(dst: dict, key: str, default: object, why: str) -> None:
 
     # Set input key to default
     dst[key] = default
-
-def _coerce_float(raw):
-    """Return a finite float, or None if raw can't be read as one."""
-
-    if isinstance(raw, bool):
-        return None
-    try:
-        n = float(raw)
-    except (TypeError, ValueError):
-        return None
-
-    if not math.isfinite(n):
-        return None
-    return n
-
-
-def _clamp_float(dst: dict, key: str, default: float, lo: float, hi: float) -> None:
-    """Coerce dst[key] to a float in [lo, hi]; fall back to default if it isn't a valid float."""
-
-    # Get value from key
-    raw = dst.get(key, None)
-
-    # Set to float
-    n = _coerce_float(raw)
-
-    # If None is returned, set to default
-    if n is None:
-        _set_default(dst, key, default, f"not a float: {raw!r}")
-        return
-
-    # Clamp into range and write back
-    dst[key] = max(lo, min(n, hi))
 
 def _auto_detect_port(device_name: str) -> str | None:
     """Automatic serial port detection, compatible with macOS and Raspberry Pi."""
@@ -162,31 +122,7 @@ def init_data_dir(data_dir: str) -> None:
     utils.set_data_path(data_path)
     record.set_data_path(data_path)
 
-def create_config_json(config: dict) -> None:
-    """Write configuration to a json file for parsing."""
-
-    # Set path
-    json_path = Path(f"{_DATA_PATH}/configuration.json")
-
-    # Create json file
-    try:
-        json_path.parent.mkdir(parents=True, exist_ok=True)
-    except Exception as e:
-        utils.append_log(f"Failed to create configuration.json at {json_path}: {e}")
-    else:
-        utils.append_log(f"Created configuration.json at {json_path}")
-
-    # Append configuration dictionary to json
-    try:
-        with json_path.open("w", encoding="utf-8") as f:
-            json.dump({"scan": config}, f, indent=2, sort_keys=True)
-            f.write("\n")
-    except Exception as e:
-        utils.append_log(f"Failed to write config dictionary to configuration.json at {json_path}: {e}")
-    else:
-        utils.append_log(f"Wrote config dictionary to configuration.json at {json_path}")
-
-def parse_config(config: str) -> tuple[dict, dict]:
+def parse_config(config: str) -> dict:
     """Parse configuration .toml file and return connection + switch parameters as dicts."""
 
     # Load configuration from .toml file
@@ -195,12 +131,10 @@ def parse_config(config: str) -> tuple[dict, dict]:
     # Try to get connection and config keys, if it fails, set to default
     try:
         connection = dict(cfg.get("connection", {}))
-        settings = dict(cfg.get("settings ", {}))
     except Exception as e:
         utils.append_log(f"Failed to parse configuration from config.toml: {e}, setting to default.")
-        settings = _DEFAULT_SETTINGS
         raise
-    
+
     # Fill missing connection keys with defaults
     for k, v in _DEFAULT_CONNECTION.items():
         connection.setdefault(k, v)
@@ -213,17 +147,7 @@ def parse_config(config: str) -> tuple[dict, dict]:
     if connection["port"] is None and connection["device_name"] is None:
         _set_default(connection, "device_name", _DEFAULT_CONNECTION["device_name"], "both port and device_name missing/blank")
 
-    # Fill missing switch command keys with defaults
-    for k, v in _DEFAULT_SETTINGS.items():
-        settings.setdefault(k, v)
-
-    # Validate switch command parameters
-    _clamp_float(settings, "interval", _DEFAULT_SETTINGS["interval"], 1.0, 15300.0)
-    _clamp_float(settings, "pressure", _DEFAULT_SETTINGS["pressure"], 0, 110000.0)
-
-    utils.append_log(f"Configuration file parsed - {settings}")
-
-    return connection, settings
+    return connection
 
 def create_log_file() -> None:
     """Create log file and write an init line."""

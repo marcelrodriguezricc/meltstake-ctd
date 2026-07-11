@@ -103,6 +103,33 @@ sudo ~/meltstake-ctd/scripts/run.sh --debug --config default_config --data ~/mel
 
 Config lookup behavior is intended to support filename only (under `configs/`), e.g. `--config config.toml`.
 
+## Tools
+
+- ### Sensor Configuration (sensor_configuration.py)
+
+    Writes user settings to sensor firmware outside of runtime
+
+    - **Usage**
+
+        Set user settings at top of code and from tools directory run:
+
+        ```bash
+        python3 sensor_configuration.py
+        ```
+
+
+- ### Aanderaa 5990 Raw Data Parser (raw_data_parser.py)
+
+    Convert raw Aanderaa 5990 data .txt file into a human-readable .csv
+
+    - **Usage**
+
+        Set user settings at top of code and from tools directory run:
+
+        ```bash
+        python3 parse_raw_data.py
+        ```
+
 ## License
 
 MIT — see [`LICENSE`](LICENSE).
