@@ -2,16 +2,13 @@
 """
 Standalone configuration tool for the Aanderaa 5990 Conductivity Sensor.
 
-Run this ONCE to write deployment settings to the sensor over RS-232, then
-exit. It is intentionally separate from the logging/sampling runtime — sensor
-configuration is a one-off setup step, not something the sampling loop repeats.
+Run this to write deployment settings to the sensor over RS-232, then
+exit.
 
 Edit the USER SETTINGS block below, then run:
 
-    python3 configure_5990.py
+    python3 sensor_configuration.py
 
-Every step is printed to the console so you can see exactly what the sensor
-acknowledged.
 """
 
 import time
